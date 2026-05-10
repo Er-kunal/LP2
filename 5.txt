@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+class ChatBot {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String user;
+
+        System.out.println("Welcome to Customer Support Chatbot!");
+        System.out.println("Type 'exit' to end the chat.");
+
+        while (true) {
+            System.out.print("You: ");
+            user = sc.nextLine().toLowerCase();
+
+            if (user.contains("hello") || user.contains("hi")) {
+                System.out.println("Bot: Hello! How can I help you?");
+            }
+            else if (user.contains("product")) {
+                System.out.println("Bot: We sell laptops, mobiles, and accessories.");
+            }
+            else if (user.contains("price")) {
+                System.out.println("Bot: Prices depend on the product you choose.");
+            }
+            else if (user.contains("delivery")) {
+                System.out.println("Bot: Delivery takes 3 to 5 business days.");
+            }
+            else if (user.contains("return")) {
+                System.out.println("Bot: Products can be returned within 7 days.");
+            }
+            else if (user.contains("contact")) {
+                System.out.println("Bot: You can contact us at support@example.com.");
+            }
+            else if (user.equals("exit")) {
+                System.out.println("Bot: Thank you for visiting. Goodbye!");
+                break;
+            }
+            else {
+                System.out.println("Bot: Sorry, I didn't understand that.");
+            }
+        }
+
+        sc.close();
+    }
+}
