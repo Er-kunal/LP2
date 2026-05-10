@@ -1,0 +1,91 @@
+import java.util.Scanner;
+
+class NQueens {
+    static int n;
+    static int board[];
+
+    // Check if queen can be placed
+    static boolean isSafe(int row, int col) {
+        for (int i = 0; i < row; i++) {
+            if (board[i] == col ||
+                Math.abs(board[i] - col) == Math.abs(i - row))
+                return false;
+        }
+        return true;
+    }
+
+    // Backtracking + Branch and Bound
+    static boolean solve(int row) {
+        if (row == n)
+            return true;
+
+        for (int col = 0; col < n; col++) {
+            if (isSafe(row, col)) {
+                board[row] = col;
+
+                if (solve(row + 1))
+                    return true;
+
+                board[row] = -1; // Backtrack
+            }
+        }
+        return false;
+    }
+
+    // Print chessboard
+    static void printBoard() {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i] == j)
+                    System.out.print("Q ");
+                else
+                    System.out.print(". ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter N: ");
+        n = sc.nextInt();
+
+        board = new int[n];
+        for (int i = 0; i < n; i++)
+            board[i] = -1;
+
+        if (solve(0))
+            printBoard();
+        else
+            System.out.println("No solution");
+    }
+}
+
+
+What is Branch and Bound?
+
+Branch and Bound is an optimization/search technique that:
+
+Branches by exploring possible choices.
+Bounds by eliminating choices that cannot lead to a valid solution.
+
+For the N-Queen problem:
+
+Branching: Try placing a queen row by row.
+Bounding: Before placing a queen, check whether the column and diagonals are safe.
+
+If a position is unsafe, that branch is discarded immediately.
+
+Algorithm Steps
+1.Start with row 0.
+2.For each column:
+Check if column and diagonals are free.
+If safe:
+  Place queen.
+  Mark column and diagonals.
+  Recur for next row.
+Backtrack:
+  Remove queen.
+  Unmark column and diagonals.
+3.Continue until all N queens are placed.
