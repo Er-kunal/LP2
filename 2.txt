@@ -1,0 +1,63 @@
+class Astar {
+    public static void main(String[] args) {
+
+        int graph[][] = {
+            {0, 2, 4, 0},
+            {2, 0, 1, 7},
+            {4, 1, 0, 3},
+            {0, 7, 3, 0}
+        };
+
+        
+        int h[] = {7, 6, 2, 0};
+
+        int n = 4;
+        int start = 0;
+        int goal = 3;
+
+        
+        boolean visit[] = new boolean[n];
+
+        int current = start;
+
+        System.out.println("Path: " + current);
+
+        while (current != goal) {
+            visit[current] = true;
+
+            int min = 999;
+            int next = -1;
+
+            
+            for (int i = 0; i < n; i++) {
+                if (graph[current][i] != 0 && !visit[i]) {
+                    int f = graph[current][i] + h[i];
+
+                    System.out.println("Node " + i + " : " + f);
+
+                    if (f < min) {
+                        min = f;
+                        next = i;
+                    }
+                }
+            }
+
+            current = next;
+            System.out.println("Selected node: " + current);
+        }
+
+        
+        visit[current] = true;
+
+        System.out.println("Destination reached");
+
+       
+        System.out.print("Visited nodes: ");
+        for (int i = 0; i < n; i++) {
+            if (visit[i]) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+}
+
